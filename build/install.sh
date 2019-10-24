@@ -28,15 +28,3 @@ sed -i "s~{{{CUSTOM_PARAM}}}~$custom_param~g" docker-compose.yml
 
 
 docker-compose  -f docker-compose.yml  up -d
-
- 
-
-
-
-
-
-
-
-
-
-
