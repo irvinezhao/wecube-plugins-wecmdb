@@ -25,6 +25,7 @@ package:
 	cd package && docker save $(project_name):$(version) -o image.tar
 	cd package && cp ../register.xml .
 	git clone https://github.com/WeBankPartners/we-cmdb.git
+	cd we-cmdb && git checkout 364_cmdb_ui_plugin
 	cd we-cmdb && make build-plugin-ui
 	cd package && zip -r ui.zip ../we-cmdb/cmdb-ui/dist
 	cd package && zip -r $(project_name)-$(version).zip .
