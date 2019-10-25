@@ -7,18 +7,18 @@
 
     <!-- 2.菜单注入 - 描述运行本插件包需要注入的菜单 -->
     <menus>
-        <menu code='DESIGNING_CI_DATA_ENQUIRY' cat='DATA_QUERY' displayName="CI Data Enquiry">/designing/ci-data-enquiry</menu>
-        <menu code='DESIGNING_CI_INTEGRATED_QUERY_EXECUTION' cat='DATA_QUERY' displayName="CI Integrated Enquiry">/designing/ci-integrated-query-execution</menu>
-        <menu code='DESIGNING_ENUM_ENQUIRY' cat='DATA_QUERY' displayName="Enum Enquiry">/designing/enum-enquiry</menu>
+        <menu code='DESIGNING_CI_DATA_ENQUIRY' cat='DESIGNING' displayName="CI Data Enquiry">/designing/ci-data-enquiry</menu>
+        <menu code='DESIGNING_CI_INTEGRATED_QUERY_EXECUTION' cat='DESIGNING' displayName="CI Integrated Enquiry">/designing/ci-integrated-query-execution</menu>
+        <menu code='DESIGNING_ENUM_ENQUIRY' cat='DESIGNING' displayName="Enum Enquiry">/designing/enum-enquiry</menu>
 
-        <menu code='DESIGNING_CI_DATA_MANAGEMENT' cat='DATA_MANAGEMENT' displayName="CI Data Management">/designing/ci-data-management</menu>
-        <menu code='DESIGNING_CI_INTEGRATED_QUERY_MANAGEMENT' cat='DATA_MANAGEMENT' displayName="CI Integrated Enquiry Management">/designing/ci-integrated-query-management</menu>
-        <menu code='DESIGNING_ENUM_MANAGEMENT' cat='DATA_MANAGEMENT' displayName="Enum Management">/designing/enum-management</menu>
+        <menu code='DESIGNING_CI_DATA_MANAGEMENT' cat='DESIGNING' displayName="CI Data Management">/designing/ci-data-management</menu>
+        <menu code='DESIGNING_CI_INTEGRATED_QUERY_MANAGEMENT' cat='DESIGNING' displayName="CI Integrated Enquiry Management">/designing/ci-integrated-query-management</menu>
+        <menu code='DESIGNING_ENUM_MANAGEMENT' cat='DESIGNING' displayName="Enum Management">/designing/enum-management</menu>
 
-        <menu code='IDC_PLANNING_DESIGN' cat='VIEW_MANAGEMENT' displayName="IDC Planning Design">/view-management/idc-planning-design</menu>
-        <menu code='IDC_RESOURCE_PLANNING' cat='VIEW_MANAGEMENT' displayName="IDC Resource Plan">/view-management/idc-resource-planning</menu>
-        <menu code='APPLICATION_ARCHITECTURE_DESIGN' cat='VIEW_MANAGEMENT' displayName="App Architecture Design">/view-management/application-architecture-design</menu>
-        <menu code='APPLICATION_DEPLOYMENT_DESIGN' cat='VIEW_MANAGEMENT' displayName="APP Deploy Design">/view-management/application-deployment-design</menu>
+        <menu code='IDC_PLANNING_DESIGN' cat='DESIGNING' displayName="IDC Planning Design">/view-management/idc-planning-design</menu>
+        <menu code='IDC_RESOURCE_PLANNING' cat='DESIGNING' displayName="IDC Resource Plan">/view-management/idc-resource-planning</menu>
+        <menu code='APPLICATION_ARCHITECTURE_DESIGN' cat='DESIGNING' displayName="App Architecture Design">/view-management/application-architecture-design</menu>
+        <menu code='APPLICATION_DEPLOYMENT_DESIGN' cat='DESIGNING' displayName="APP Deploy Design">/view-management/application-deployment-design</menu>
 
         <menu code='ADMIN_CMDB_MODEL_MANAGEMENT' cat='ADMIN' displayName="CMDB Model Management">/admin/cmdb-model-management</menu>
         <menu code='ADMIN_PERMISSION_MANAGEMENT' cat='ADMIN' displayName="Permission Management">/admin/permission-management</menu>
@@ -82,9 +82,10 @@
     <!-- 7.插件列表 - 描述插件包中单个插件的输入和输出 -->
     <plugins>
         <plugin id="ci-data" name="CI Data">
-            <interface name="retrieve" path="/ci/retrieve" httpMethod='POST'>
+            <interface name="retrieve" path="/cis/{ci-type-id}/datas/{guid}" httpMethod='POST'>
                 <input-parameters>
-                    <parameter datatype="int" mappingType='context'  required='Y'>ciTypeId</parameter>
+                    <parameter datatype="int" mappingType='context'  required='Y'>ci-type-id</parameter>
+                    <parameter datatype="string" mappingType='context' required='Y'>guid</parameter>
                     <!--问题：模型数据查询，是否要支持过滤条件查询？如是，JSON格式是怎样定义的？-->
                 </input-parameters>
                 <output-parameters>
@@ -94,7 +95,7 @@
                     <!--问题：模型数据查询返回的数据结构的JSON格式是怎样定义的？-->
                 </output-parameters>
             </interface>
-            <interface name="confirm" path="/ci/confirm" httpMethod='POST'>
+            <interface name="confirm" path="/cis/{ci-type-id}/datas/{guid}/confirm" httpMethod='POST'>
                 <input-parameters>
                     <parameter datatype="int" mappingType='context'  required='Y'>ciTypeId</parameter>
                     <parameter datatype="string" mappingType='context' required='Y'>guid</parameter>
