@@ -20,6 +20,10 @@ push:
 	docker tag  $(project_name):$(version) $(remote_docker_image_registry):$(date)-$(version)
 	docker push $(remote_docker_image_registry):$(date)-$(version)
 
+s3_server_url=http://10.10.10.1:9000
+s3_access_key=access_key
+s3_secret_key=secret_key
+
 .PHONY:package
 package:
 	rm -rf package
@@ -30,3 +34,8 @@ package:
 	cd we-cmdb && make build-plugin-ui
 	cd package && zip -r ui.zip ../we-cmdb/cmdb-ui/dist
 	cd package && zip -r $(project_name)-$(version).zip .
+	docker stop minio-client
+	docker rm minio-client
+	docker run --name minio-client -v `pwd`/package:/package -itd --entrypoint=/bin/sh minio/mc
+	docker exec minio-client mc config host add wecubeS3 $(s3_server_url) $(s3_access_key) $(s3_secret_key) wecubeS3
+	docker exec minio-client mc cp /package/$(project_name)-$(version).zip wecubeS3/wecube-plugin-package-bucket
