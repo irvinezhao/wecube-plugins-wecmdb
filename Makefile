@@ -32,7 +32,8 @@ package:
 	cd package && cp ../register.xml .
 	cd we-cmdb && git checkout 364_cmdb_ui_plugin && git pull
 	cd we-cmdb && make build-plugin-ui
-	cd package && zip -r ui.zip ../we-cmdb/cmdb-ui/dist
+	cd we-cmdb/cmdb-ui/dist && zip -r ui.zip .
+	cd package && cp ../we-cmdb/cmdb-ui/dist/ui.zip .
 	cd package && zip -r $(project_name)-$(version).zip .
 	docker stop minio-client
 	docker rm minio-client
