@@ -20,6 +20,7 @@ push:
 	docker tag  $(project_name):$(version) $(remote_docker_image_registry):$(date)-$(version)
 	docker push $(remote_docker_image_registry):$(date)-$(version)
 
+.PHONY:package
 package:
 	rm -rf package
 	mkdir -p package
