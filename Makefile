@@ -21,6 +21,7 @@ push:
 	docker push $(remote_docker_image_registry):$(date)-$(version)
 
 package:
+	rm -rf package
 	mkdir -p package
 	cd package && docker save $(project_name):$(version) -o image.tar
 	cd package && cp ../register.xml .
